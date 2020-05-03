@@ -1,0 +1,55 @@
+[Tensorflow]
+-APIs
+  (1) tf.placeholder( dtype, shape=None, name=None )
+      儲存資料的容器
+      dtype: data type, 通常使用tf.float32, tf.float64
+      Shape: 儲存資料的維度, 及每個維度的大小
+      
+  (2) tf.Variable( initial_value=None, dtype=None )
+      tf.Variable創建一個帶有初始值的變數
+      initial_value: A Tensor或Python object轉換的Tensor
+      dtype: 將initial_value的型別轉換成該型別
+      
+  (3) tf.constant( value, dtype=None, shape=None )
+      tf.constant創建一個常數tensor
+      value: 一個tensor, 可以是scalar, vector, maxtrix或tensor
+      dtype: The type of the elements of the resulting tensor
+      shape: optional dimensions of resulting tensor
+      # shape若未指定, 以value的shape當作回傳值
+      # tensor = tf.constant([1,2,3,4,5,6,7]) => [1,2,3,4,5,6,7]
+      # tensor = tf.constant(-1.0, shape[1,3]) => [[-1,-1,-1]]
+      # dtype若未指定則以value的型別作為預設data type
+      
+  (4) tf.Session: A class for running Tensorflow operations.
+      1.method 1:create a variable for a session
+          sess = tf.Session()
+          sess.run(...)
+          sess.close()
+      2.method 2:use with create a session
+          with tf.Session() as sess:
+          sess.run()
+          
+  (5) tf.global_variables_initializer()
+      在使用宣告的variable, 必須對其進行初始化
+      
+      
+[TensorBoard]
+-方便debug和optimize Tensorflow的程式, 視覺化Tensorflow graph, 在程式中可以將資料繪製成圖表
+
+-網頁應用程式, Tensorflow輸出的資料以網頁方式呈現localhost:6006
+
+- x = tf.placeholder( tf.float32, [BATCH_SIZE, 784], name = 'input' )
+  y = tf.placeholder( tf.float32, [BATCH_SZIE, 10 ], name = 'label' )
+
+-APIs
+  (1) tf.summary,scalar( name, tensor )
+      輸出是一個scalar value, 如果輸入是一個矩陣, 必須轉為scalar
+      name: 對node作取名
+      
+  (2) tf.summary.merge_all()
+      Merges all summaries collected in the default graph.
+      
+  (3) tf.summary.FileWriter( logdir, graph = None )
+      Writes Summary protocal buffers to event files.
+      logdir: 建立放置event file的目錄
+      graph: A Graph object, 常用tf.Session().graph
